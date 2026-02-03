@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -39,5 +40,8 @@ public class User {
     @Positive(message = "Altura deve ser positiva")
     private Double height; // em metros
 
-    private Double imc; // será calculado automaticamente
+    private Double imc;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<WeightHistory> weightHistory;
 }

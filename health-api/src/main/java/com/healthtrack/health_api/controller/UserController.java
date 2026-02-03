@@ -1,6 +1,7 @@
 package com.healthtrack.health_api.controller;
 
 import com.healthtrack.health_api.dto.UserRequestDTO;
+import com.healthtrack.health_api.dto.UserResponseDTO;
 import com.healthtrack.health_api.entity.User;
 import com.healthtrack.health_api.service.UserService;
 import jakarta.validation.Valid;
@@ -17,8 +18,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody UserRequestDTO dto) {
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO dto) {
         User savedUser = userService.createUser(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+        UserResponseDTO response = new UserResponseDTO(savedUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
